@@ -9,13 +9,13 @@ import Foundation
 import Combine
 
 class TaskCellViewModel: ObservableObject, Identifiable {
-    @Published var taskList: TaskData
+    @Published var taskData: TaskData
     var id = ""
     private var cancallable = Set<AnyCancellable>()
     
-    init(taskList: TaskData) {
-        self.taskList = taskList
-        $taskList.map{ task in
+    init(taskData: TaskData) {
+        self.taskData = taskData
+        $taskData.map{ task in
             task.id
         }
         .assign(to: \.id, on: self)

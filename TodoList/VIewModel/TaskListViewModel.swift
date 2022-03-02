@@ -11,10 +11,9 @@ import Combine
 class TaskListViewModel: ObservableObject {
    @Published var taskCellViewModel = [TaskCellViewModel]()
     
-    
     init() {
-        self.taskCellViewModel = testTaskData.map{ taskList in
-            TaskCellViewModel(taskList: taskList)
+        self.taskCellViewModel = testTaskData.map { taskData in
+            TaskCellViewModel(taskData: taskData)
         }
     }
 }

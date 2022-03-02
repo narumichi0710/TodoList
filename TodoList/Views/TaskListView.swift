@@ -9,15 +9,24 @@ import SwiftUI
 
 struct TaskListView: View {
     @ObservedObject var taskListVM = TaskListViewModel()
+    @State var addNewItem = false
+    
     var body: some View {
         NavigationView{
             
             VStack(alignment: .leading){
-                List (self.taskListVM.taskCellViewModel) { taskCellVM in
-                    TaskCellView(taskCellVM: taskCellVM)
+                List{
+                    ForEach (self.taskListVM.taskCellViewModel) { taskCellVM in
+                        TaskCellView(taskCellVM: taskCellVM)
+                    }
+                    if self.addNewItem {
+                        TaskCellView(taskCellVM: TaskCellViewModel(
+                            taskData: TaskData(title: "aaa", isComplated: false)
+                        ))
+                    }
                 }
                 Button(action:{
-                    
+                    self.addNewItem.toggle()
                 }, label: {
                     HStack {
                         Image(systemName: "plus.circle.fill")
