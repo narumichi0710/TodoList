@@ -8,18 +8,13 @@
 import SwiftUI
 
 struct TaskListView: View {
+    @ObservedObject var taskListVM = TaskListViewModel()
     var body: some View {
         NavigationView{
             
             VStack(alignment: .leading){
-                List (testTaskData) { task in
-                    HStack {
-                        Image(systemName: task.isComplated ? "checkmark.circle.fill" :"circle")
-                            .resizable()
-                            .frame(width: 20, height: 20)
-                        
-                        Text(task.id)
-                    }
+                List (self.taskListVM.taskCellViewModel) { taskCellVM in
+                    TaskCellView(taskCellVM: taskCellVM)
                 }
                 Button(action:{
                     
