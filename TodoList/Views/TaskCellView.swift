@@ -9,6 +9,7 @@ import SwiftUI
 
 struct TaskCellView: View {
     @ObservedObject var taskCellVM: TaskCellViewModel
+    var onCommit: (TaskData) -> Void = { _ in }
     var body: some View {
         HStack {
             Image(systemName: self.taskCellVM.taskData.isComplated ? "checkmark.circle.fill" :"circle")
@@ -18,7 +19,9 @@ struct TaskCellView: View {
                     self.taskCellVM.taskData.isComplated.toggle()
                 }
             
-            TextField("Enter the task", text: self.$taskCellVM.taskData.title)
+            TextField("Enter the task", text: self.$taskCellVM.taskData.title, onCommit: {
+                self.onCommit(self.taskCellVM.taskData)
+            })
         }
     }
 }

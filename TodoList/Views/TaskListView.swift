@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TaskListView: View {
     @ObservedObject var taskListVM = TaskListViewModel()
-    @State var addNewItem = false
+    @State var ifAddNewItem = false
     
     var body: some View {
         NavigationView{
@@ -19,14 +19,17 @@ struct TaskListView: View {
                     ForEach (self.taskListVM.taskCellViewModel) { taskCellVM in
                         TaskCellView(taskCellVM: taskCellVM)
                     }
-                    if self.addNewItem {
+                    if self.ifAddNewItem {
                         TaskCellView(taskCellVM: TaskCellViewModel(
-                            taskData: TaskData(title: "aaa", isComplated: false)
-                        ))
+                            taskData: TaskData(title: "", isComplated: false)
+                        )){ taskData in
+                            self.taskListVM.addNewItem(taskData: taskData)
+                            self.ifAddNewItem.toggle()
+                        }
                     }
                 }
                 Button(action:{
-                    self.addNewItem.toggle()
+                    self.ifAddNewItem.toggle()
                 }, label: {
                     HStack {
                         Image(systemName: "plus.circle.fill")
